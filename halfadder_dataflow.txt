@@ -1,0 +1,47 @@
+TEST
+
+module half_adder_dataflow (
+    input A,
+    input B,
+    output SUM,
+    output CARRY
+);
+
+assign SUM   = A ^ B;
+assign CARRY = A & B;
+
+endmodule
+
+-------------------------------------------------------------------------------------
+
+
+TEST-BENCH CODE
+
+
+`timescale 1ns/1ps
+module half_adder_dataflow_tb;
+
+reg A, B;
+wire SUM, CARRY;
+
+half_adder_dataflow uut (
+    .A(A),
+    .B(B),
+    .SUM(SUM),
+    .CARRY(CARRY)
+);
+
+initial begin
+    $dumpfile("half_adder_dataflow.vcd");
+    $dumpvars(0, half_adder_dataflow_tb);
+
+    A=0; B=0; #10;
+    A=0; B=1; #10;
+    A=1; B=0; #10;
+    A=1; B=1; #10;
+
+    $finish;
+end
+
+endmodule
+
