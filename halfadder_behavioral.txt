@@ -1,0 +1,49 @@
+///////////// TEST  ////////////////
+
+
+module half_adder_behavioral(
+  input a,
+  input b,
+  output reg sum,
+  output reg carry
+);
+  
+  always@(*) begin
+  sum = a ^ b;
+  carry = a & b;
+  end
+  
+endmodule
+
+
+
+
+/////////// TEST BENCH CODE /////////
+
+
+
+module half_adder_behavioral_tb;
+  
+  reg a;
+  reg b;
+  wire sum;
+  wire carry;
+  
+  half_adder_behavioral HAB (.a(a),
+                             .b(b),
+                             .sum(sum),
+                             .carry(carry)
+                            );
+  initial begin
+    $dumpfile("half_adder_behavioral.vcd");
+    $dumpvars(0, half_adder_behavioral_tb);
+
+    a=0; b=0; #10;
+    a=1; b=0; #10;
+    a=0; b=1; #10;
+    a=1; b=1; #10;
+    
+    $finish;
+    
+  end
+endmodule
